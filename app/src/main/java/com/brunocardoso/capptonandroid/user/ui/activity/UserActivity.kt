@@ -1,11 +1,11 @@
-package com.brunocardoso.capptonandroid.user.activity
+package com.brunocardoso.capptonandroid.user.ui.activity
 
 import android.os.Bundle
 import com.brunocardoso.capptonandroid.R
 import com.brunocardoso.capptonandroid.infra.base.BaseActivity
-import com.brunocardoso.capptonandroid.pauta.activity.PautasActivity
-import com.brunocardoso.capptonandroid.user.fragments.SigninFragment
-import com.brunocardoso.capptonandroid.user.fragments.SignupFragment
+import com.brunocardoso.capptonandroid.schedule.ui.activity.ScheduleActivity
+import com.brunocardoso.capptonandroid.user.ui.fragments.SigninFragment
+import com.brunocardoso.capptonandroid.user.ui.fragments.SignupFragment
 import com.brunocardoso.capptonandroid.user.view.UserViewCallback
 import com.google.firebase.auth.FirebaseAuth
 
@@ -21,11 +21,11 @@ class UserActivity : BaseActivity(), UserViewCallback {
 
         // verify if user is not authenticated
         if (verifyAuthenticatedUser()) {
-            openActivity(PautasActivity::class, null)
+            openActivity(ScheduleActivity::class, null)
             finish()
         }
 
-        replaceFragmentOnContainer( SigninFragment() )
+        replaceFragmentOnContainer( R.id.frame_container, SigninFragment() )
     }
 
     /*
@@ -33,7 +33,7 @@ class UserActivity : BaseActivity(), UserViewCallback {
      * Open activity pautas
      */
     override fun onSucessful() {
-        openActivity(PautasActivity::class, null)
+        openActivity(ScheduleActivity::class, null)
         finish()
     }
 
@@ -49,7 +49,7 @@ class UserActivity : BaseActivity(), UserViewCallback {
      * Event of click to register user
      */
     override fun openSignupView() {
-        replaceFragmentOnContainer( SignupFragment() )
+        replaceFragmentOnContainer( R.id.frame_container, SignupFragment() )
     }
 
     /*

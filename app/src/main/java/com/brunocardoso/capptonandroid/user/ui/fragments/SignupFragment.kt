@@ -1,21 +1,21 @@
-package com.brunocardoso.capptonandroid.user.fragments
+package com.brunocardoso.capptonandroid.user.ui.fragments
 
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 
 import com.brunocardoso.capptonandroid.R
 import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
 import com.brunocardoso.capptonandroid.user.view.UserView
 import com.brunocardoso.capptonandroid.user.view.UserViewCallback
-import kotlinx.android.synthetic.main.frag_signin.*
+import kotlinx.android.synthetic.main.frag_signup.*
 import java.lang.ClassCastException
 
-class SigninFragment : Fragment(), UserView {
+class SignupFragment : Fragment(), UserView {
 
     private lateinit var presenter: UserPresenter
     private var callback: UserViewCallback? = null
@@ -24,7 +24,8 @@ class SigninFragment : Fragment(), UserView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.frag_signin, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.frag_signup, container, false)
     }
 
     /*
@@ -33,51 +34,46 @@ class SigninFragment : Fragment(), UserView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // initial presenter
         presenter = UserPresenter(requireContext(), this)
 
-        // click button signin
-        btn_signin.setOnClickListener({
-            val email: String = edt_email.text.toString()
-            val passw: String = edt_passw.text.toString()
+        /*
+         * Click button signup
+         */
+        btn_signup.setOnClickListener({
+            val name = edt_name.text.toString()
+            val email = edt_email.text.toString()
+            val passw = edt_passw.text.toString()
 
-            presenter.signin(email, passw)
+            presenter.signup(name, email, passw)
         })
 
-        // click text register for open fragment SignupFragment
-        tv_open_signup.setOnClickListener({
-            callback?.openSignupView()
-        })
     }
 
     /*
-     * Signin succeful
+     * Signup succeful
      */
     override fun onSuccess() {
         callback?.onSucessful()
     }
 
     /*
-     * Error at signin
+     * Error at signup
      */
     override fun onError(error: String) {
         callback?.onError()
     }
 
-    /*
-     * Logout user and
-     */
     override fun onLogout() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        try {
+        try{
             callback = context as UserViewCallback
         }catch (e: ClassCastException){
             throw ClassCastException("$callback must implement ${UserViewCallback::class.java.simpleName}")
         }
     }
-
 }
