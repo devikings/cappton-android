@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "701471265502",
+    "firebase_url": "https://cappton-9fb2b.firebaseio.com",
+    "project_id": "cappton-9fb2b",
+    "storage_bucket": "cappton-9fb2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701471265502:android:f436b3fe5f8f38a5",
+        "android_client_info": {
+          "package_name": "com.brunocardoso.capptonandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701471265502-h7e1t9o0b094elacrfb1vg1jbjdk5uno.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brunocardoso.capptonandroid",
+            "certificate_hash": "2b6fef033b61ecdb0e456667d906dfab4deadcf1"
+          }
+        },
+        {
+          "client_id": "701471265502-2956e2a336r96ec28h0ih2jbitf9q8c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwybmx-2CD9nIVz1o8VL0MFOf9z9BHQFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701471265502-2956e2a336r96ec28h0ih2jbitf9q8c3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

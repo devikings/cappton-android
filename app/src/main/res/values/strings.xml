@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Cappton Android</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="frag_input_name_hint">Name</string>
+    <string name="frag_input_email_hint">E-mail</string>
+    <string name="frag_passw_hint">Senha</string>
 </resources>
