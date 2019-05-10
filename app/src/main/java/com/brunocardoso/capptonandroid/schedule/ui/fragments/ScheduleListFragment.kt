@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -32,7 +33,7 @@ class ScheduleListFragment : Fragment(), ListViewListenner {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = SchedulePresenter(null, this)
-        presenter.getListScheduled().observe(viewLifecycleOwner, Observer {
+        presenter.listScheduled.observe(viewLifecycleOwner, Observer {
             configureRecyclerView(it)
         })
 
@@ -48,7 +49,9 @@ class ScheduleListFragment : Fragment(), ListViewListenner {
         recycler_view_schedules.layoutManager = layoutManager
 
         adapter = ScheduleAdapter(list) {
-            presenter.add(Scheduled(7, "Teste 7", "Descricao do item 7", Author(1, "Bruno")))
+            val scheduleSelected = presenter.getScheduled(it.id!!)
+            Toast.makeText(requireContext(), "${scheduleSelected.titulo}", Toast.LENGTH_LONG).
+                    show()
         }
         recycler_view_schedules.adapter = adapter
 

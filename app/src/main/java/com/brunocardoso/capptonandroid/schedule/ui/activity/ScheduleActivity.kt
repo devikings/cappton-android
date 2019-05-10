@@ -35,8 +35,9 @@ class ScheduleActivity : BaseActivity() {
     }
 
     fun initViews(){
-        btn_new_scheduled.setOnClickListener{
-            replaceFragmentOnContainer(R.id.frame_container, ScheduleRegisterFragment())
-        }
+        //TODO add fab
+//        btn_new_scheduled.setOnClickListener{
+//            replaceFragmentOnContainer(R.id.frame_container, ScheduleRegisterFragment())
+//        }
     }
 }

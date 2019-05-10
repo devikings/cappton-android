@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "schedules")
 data class Scheduled(
     @PrimaryKey(autoGenerate = true)
-    val id: Long? = null,
+    val id: Int? = null,
     val titulo: String,
     val desc: String,
     val author: Author)
