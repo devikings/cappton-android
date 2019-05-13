@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".schedule.ui.activity.ScheduleCreateActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Titulo"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+            <EditText
+                android:id="@+id/edt_sched_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:lines="1"
+                style="@style/AppTheme.EditText.Dark"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Author."
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+            <Spinner
+                android:id="@+id/sp_author"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:lines="1"
+                style="@style/AppTheme.EditText.Dark"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+            <EditText
+                android:id="@+id/edt_sched_desc"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="top"
+                style="@style/AppTheme.EditText.Dark"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_schedule_create"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:text="Create"
+        style="@style/AppTheme.Button.Dark"
+        />
+</LinearLayout>

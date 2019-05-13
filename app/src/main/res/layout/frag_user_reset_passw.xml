@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     tools:theme="@style/AppTheme.Signin"
+     tools:background="@drawable/bg_degrade"
+     tools:context=".user.ui.fragments.UserResetPasswFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/frag_input_email_hint"
+                android:layout_marginBottom="5dp"
+                />
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textEmailAddress"
+                style="@style/AppTheme.EditText.Light"
+                />
+
+            <Button
+                android:id="@+id/btn_reset_passw"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:text="Reset Password"
+                style="@style/AppTheme.Button.Light"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

@@ -1,15 +1,20 @@
 package com.brunocardoso.capptonandroid.user.ui.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import com.brunocardoso.capptonandroid.R
 import com.brunocardoso.capptonandroid.infra.base.BaseActivity
+import com.brunocardoso.capptonandroid.schedule.repository.data.Schedule
 import com.brunocardoso.capptonandroid.schedule.ui.activity.ScheduleActivity
-import com.brunocardoso.capptonandroid.user.ui.fragments.SigninFragment
-import com.brunocardoso.capptonandroid.user.ui.fragments.SignupFragment
-import com.brunocardoso.capptonandroid.user.view.UserViewCallback
-import com.google.firebase.auth.FirebaseAuth
+import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
+import com.brunocardoso.capptonandroid.user.ui.fragments.UserResetPasswFragment
+import com.brunocardoso.capptonandroid.user.ui.fragments.UserSigninFragment
+import com.brunocardoso.capptonandroid.user.ui.fragments.UserSignupFragment
+import com.brunocardoso.capptonandroid.user.view.UserFragmentCallback
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.frag_user_signup.*
 
-class UserActivity : BaseActivity(), UserViewCallback {
+class UserActivity : BaseActivity(), UserFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,43 +25,40 @@ class UserActivity : BaseActivity(), UserViewCallback {
         super.onStart()
 
         // verify if user is not authenticated
-        if (verifyAuthenticatedUser()) {
+        if (UserPresenter.verifyUserAuthenticated()) {
+
+            Snackbar.make(findViewById(R.id.frame_container), "Signin with successful!", Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show()
+
             openActivity(ScheduleActivity::class, null)
             finish()
         }
 
-        replaceFragmentOnContainer( R.id.frame_container, SigninFragment() )
+        replaceFragmentOnContainer( R.id.frame_container, UserSigninFragment() )
+
     }
 
-    /*
-     * Signin sucessful
-     * Open activity pautas
-     */
-    override fun onSucessful() {
-        openActivity(ScheduleActivity::class, null)
-        finish()
-    }
-
-    /*
-     * Erros at signin
-     * Show menssage on Toast
-     */
-    override fun onError() {
-        // Exibe a mensagem no toast
-    }
-
-    /*
-     * Event of click to register user
-     */
     override fun openSignupView() {
-        replaceFragmentOnContainer( R.id.frame_container, SignupFragment() )
+        replaceFragmentOnContainer(R.id.frame_container, UserSignupFragment())
     }
 
-    /*
-     * Verify if user is authenticated
-     */
-    fun verifyAuthenticatedUser(): Boolean{
-        if (FirebaseAuth.getInstance().currentUser == null) return false
-        return true
+    override fun openResetPasswordView() {
+        replaceFragmentOnContainer(R.id.frame_container, UserResetPasswFragment())
+    }
+
+    override fun onSigninSuccessful() {
+        openActivity(ScheduleActivity::class)
+        finish()
+
+    }
+
+    override fun onSignupSuccessful() {
+
+        replaceFragmentOnContainer(R.id.frame_container, UserSigninFragment())
+    }
+
+    override fun onResetPasswordSuccessful() {
+        replaceFragmentOnContainer(R.id.frame_container, UserSigninFragment())
     }
 }

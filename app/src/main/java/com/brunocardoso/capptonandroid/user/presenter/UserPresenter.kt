@@ -10,7 +10,6 @@ import com.google.firebase.auth.UserProfileChangeRequest
 class UserPresenter(
     private var context: Context,
     private var view: UserView
-
 ) {
     // Regras de negocio do userProfile
     // signin 1/
@@ -18,6 +17,7 @@ class UserPresenter(
     // logout 1/
     // get 1/
     // update 1/
+    // reset passw 1/
 
     fun signin(email: String, passw: String){
         FirebaseAuth
@@ -42,7 +42,13 @@ class UserPresenter(
             .addOnCompleteListener({
                 if (it.isSuccessful){
 
+                    // Update data userprofile
                     updateUser(fullName)
+
+                    // Logout user
+                    logout()
+
+                    // Notify view
                     view.onSuccess()
 
                 }else{
@@ -52,11 +58,48 @@ class UserPresenter(
             })
     }
 
-    fun logout() {
+    fun resetPassword(email: String){
         FirebaseAuth
             .getInstance()
-            .signOut()
-        view.onLogout()
+            .sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    view.onSuccess()
+                    Toast.makeText(context, "Email sent with success, verify your email",
+                        Toast.LENGTH_SHORT).show()
+                }else{
+                    view.onError("Reset password failed.")
+                    Toast.makeText(context, "Reset password failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+
+    }
+
+    companion object {
+        /*
+         * Logout user profile
+         */
+        fun logout() {
+            FirebaseAuth
+                .getInstance()
+                .signOut()
+        }
+
+        /*
+         * get user profile
+         */
+        fun getUser(): FirebaseUser? {
+            return FirebaseAuth.getInstance().currentUser
+        }
+
+        /*
+         * Verify if user is authenticated
+         */
+        fun verifyUserAuthenticated(): Boolean{
+            if (FirebaseAuth.getInstance().currentUser == null) return false
+            return true
+        }
     }
 
     fun getCurrentUser(): FirebaseUser? {

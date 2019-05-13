@@ -1,13 +1,20 @@
 package com.brunocardoso.capptonandroid.schedule.repository.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity(tableName = "schedules")
-data class Scheduled(
-    @PrimaryKey(autoGenerate = true)
+@Entity(
+    tableName = "schedules",
+    primaryKeys = ["id"],
+    foreignKeys = [ForeignKey(entity = Author::class,
+        parentColumns = ["id"],
+        childColumns = ["authorId"])]
+)
+data class Schedule(
     val id: Int? = null,
-    val titulo: String,
+    val title: String,
     val desc: String,
-    val author: Author)
+    var expanded: Boolean,
+    val uid: String,
+    @ColumnInfo(name = "authorId", index = true) //just add index = true
+    val authorId: Int
+    )

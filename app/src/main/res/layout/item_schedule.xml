@@ -1,17 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/item_scheduled_title"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        tools:text="@tools:sample/full_names"
-        />
+        android:orientation="vertical"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/ic_assignment_24dp"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/grayLight"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="6dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_scheduled_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="@tools:sample/full_names"
+                    android:layout_marginBottom="6dp"
+                    />
+
+                <TextView
+                    android:id="@+id/item_scheduled_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut sem a ligula euismod hendrerit ac et mi. Suspendisse varius augue sem, et gravida ante ultricies ut. In augue sem, ullamcorper at sollicitudin ac, finibus et odio. Fusce interdum ornare tempor. Nunc non lorem in libero dapibus malesuada. Pellentesque pretium."
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grayLight"
+        />
+        <Button
+            android:id="@+id/btn_finalizar"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Finalizar"
+            style="@style/AppTheme.Button.Logout"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_read_more"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/tv_read_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Read More"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/black"
+                />
+
+            <ImageView
+                android:id="@+id/iv_read_more"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

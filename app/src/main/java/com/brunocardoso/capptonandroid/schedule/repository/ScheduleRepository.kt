@@ -1,32 +1,108 @@
 package com.brunocardoso.capptonandroid.schedule.repository
 
-import androidx.annotation.WorkerThread
+import androidx.annotation.UiThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.brunocardoso.capptonandroid.infra.database.AppDatabase
 import com.brunocardoso.capptonandroid.schedule.repository.dao.AuthorDao
+import com.brunocardoso.capptonandroid.schedule.repository.dao.ScheduleDao
 import com.brunocardoso.capptonandroid.schedule.repository.data.Author
-import com.brunocardoso.capptonandroid.schedule.repository.data.Scheduled
-import java.util.*
+import com.brunocardoso.capptonandroid.schedule.repository.data.Schedule
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
-object ScheduleRepository {
+class ScheduleRepository private constructor(private val db: AppDatabase) {
 
-    private val schedules: List<Scheduled> = listOf(
-        Scheduled(1, "Teste 1", "Descricao do Teste 1", Author(1, "Bruno")),
-        Scheduled(2, "Teste 2", "Descricao do Teste 2", Author(2, "Pedro")),
-        Scheduled(3, "Teste 3", "Descricao do Teste 3", Author(1, "Bruno")),
-        Scheduled(4, "Teste 4", "Descricao do Teste 4", Author(2, "Pedro")),
-        Scheduled(5, "Teste 5", "Descricao do Teste 5", Author(2, "Bruno")),
-        Scheduled(6, "Teste 6", "Descricao do Teste 6", Author(1, "Bruno")))
+    companion object {
+        private var instance: ScheduleRepository? = null
 
-    private val _listSchedule = MutableLiveData<List<Scheduled>>()
+        fun getInstance(db: AppDatabase) : ScheduleRepository? {
+            if (instance == null){
+                synchronized(this){
+                    instance = ScheduleRepository(db)
+                }
+            }
 
-    val listSchedule: LiveData<List<Scheduled>>
-        get() = _listSchedule
-
-    init {
-        _listSchedule.value = schedules
+            return instance
+        }
     }
 
-    fun getSchedule(id: Int): Scheduled = schedules[Random().nextInt(schedules.size)]
+    private lateinit var scheduleDao: ScheduleDao
+    private lateinit var authorDao: AuthorDao
+
+    private lateinit var authors: MutableLiveData<List<Author>>
+    private lateinit var author: MutableLiveData<Author>
+    private lateinit var schedules : MutableLiveData<List<Schedule>>
+
+
+    init {
+        scheduleDao = db.scheduleDao()
+        authorDao = db.authorDao()
+
+        val listAuthors = authorDao.getAllAuthors()
+
+        if (listAuthors.isEmpty() || listAuthors.size == 0) {
+            // adiciona autores manualmente
+            authorDao.insertAll(
+                listOf(
+                    Author(1, "Bruno Cardoso"),
+                    Author(2, "Pedro Cardoso"),
+                    Author(3, "Jessica Pastori")
+                )
+            )
+        }
+
+    }
+
+
+    @UiThread
+    fun getSchedules(): LiveData<List<Schedule>>{
+        schedules = MutableLiveData()
+        schedules.postValue(scheduleDao.getAllSchedules())
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val schedulesFromDb: List<Schedule> = async(Dispatchers.IO) {
+                return@async scheduleDao.getAllSchedules()
+            }.await()
+
+            schedules.value = schedulesFromDb
+        }
+
+        return schedules
+    }
+
+    @UiThread
+    fun getAuthor(id: Int): LiveData<Author>{
+        author = MutableLiveData()
+        author.postValue(authorDao.getAuthor(id))
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val authorFromDb: Author = async(Dispatchers.IO) {
+                return@async authorDao.getAuthor(id)
+            }.await()
+
+            author.value = authorFromDb
+        }
+
+        return author
+    }
+
+    @UiThread
+    fun getAuthors(): LiveData<List<Author>>{
+        authors = MutableLiveData()
+        authors.postValue(authorDao.getAllAuthors())
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val authorsFromDb: List<Author> = async(Dispatchers.IO) {
+                return@async authorDao.getAllAuthors()
+            }.await()
+
+            authors.value = authorsFromDb
+        }
+
+        return authors
+    }
 
 }

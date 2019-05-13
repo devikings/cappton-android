@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "authors")
 data class Author(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long? = null,
+    @PrimaryKey val id: Int? = null,
     val name: String
-)
+) {
+    override fun toString() = name
+}
