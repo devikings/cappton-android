@@ -1,4 +1,4 @@
-package com.brunocardoso.capptonandroid
+package com.brunocardoso.capptonandroid.infra
 
 import android.text.Editable
 import android.text.TextWatcher

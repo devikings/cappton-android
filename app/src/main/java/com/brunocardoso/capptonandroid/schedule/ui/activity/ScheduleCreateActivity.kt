@@ -2,12 +2,11 @@ package com.brunocardoso.capptonandroid.schedule.ui.activity
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import com.brunocardoso.capptonandroid.R
-import com.brunocardoso.capptonandroid.afterTextChanged
+import com.brunocardoso.capptonandroid.infra.afterTextChanged
 import com.brunocardoso.capptonandroid.infra.base.BaseActivity
 import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.schedule.presenter.SchedulePresenter
