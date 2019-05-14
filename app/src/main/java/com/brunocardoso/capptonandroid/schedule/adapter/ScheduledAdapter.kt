@@ -45,6 +45,7 @@ class ScheduleAdapter(
             }
 
             itemView.setOnClickListener{
+
                 val expanded = item.expanded
                 if(expanded == false){
                     item_scheduled_desc.visibility = View.VISIBLE

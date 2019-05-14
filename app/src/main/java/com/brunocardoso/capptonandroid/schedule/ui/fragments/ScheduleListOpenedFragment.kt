@@ -39,6 +39,7 @@ class ScheduleListOpenedFragment : Fragment(), ScheduleView {
 
         presenter = SchedulePresenter(requireContext(), this)
         presenter.getSchedules(user?.uid!!,false)?.observe(viewLifecycleOwner, Observer {
+
             progress_bar.visibility = View.VISIBLE
 
             if (it.size>0) {

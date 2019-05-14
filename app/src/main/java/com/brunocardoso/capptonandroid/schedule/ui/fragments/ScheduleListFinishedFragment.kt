@@ -40,12 +40,12 @@ class ScheduleListFinishedFragment : Fragment(), ScheduleView{
 
         presenter = SchedulePresenter(requireContext(), this)
         presenter.getSchedules(user?.uid!!, true)?.observe(viewLifecycleOwner, Observer {
+
             progress_bar.visibility = View.VISIBLE
 
             if (it.size>0) {
 
                 tv_no_data.visibility = View.GONE
-                recycler_schedules_finished.visibility = View.VISIBLE
 
                 Thread(Runnable {
 
