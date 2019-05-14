@@ -42,7 +42,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/frag_input_email_hint"
+                        android:text="@string/frag_user_signin_tv_email"
                         android:layout_marginBottom="6dp"
                         />
 
@@ -59,7 +59,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/frag_input_passw_hint"
+                        android:text="@string/frag_user_signin_tv_password"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="5dp"
                         />
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="Reset password"
+                        android:text="@string/frag_user_signin_tv_reset_password"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_gravity="right|end"
@@ -89,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="25dp"
-                        android:text="signin"
+                        android:text="@string/btn_signin"
                         style="@style/AppTheme.Button.Light"
                         />
 
@@ -98,7 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="or click here for register"
+                        android:text="@string/frag_user_signin_tv_register"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"/>
 

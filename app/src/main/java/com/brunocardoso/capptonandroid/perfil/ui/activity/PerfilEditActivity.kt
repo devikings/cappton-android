@@ -5,19 +5,14 @@ import android.graphics.Color
 import android.os.Bundle
 import com.brunocardoso.capptonandroid.R
 import com.brunocardoso.capptonandroid.infra.base.BaseActivity
-import com.brunocardoso.capptonandroid.perfil.presenter.PerfilPresenter
-import com.brunocardoso.capptonandroid.perfil.view.PerfilView
+import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
-import com.google.android.material.snackbar.Snackbar
+import com.brunocardoso.capptonandroid.user.view.UserView
 import kotlinx.android.synthetic.main.act_perfil_edit.*
 
-class PerfilEditActivity : BaseActivity(), PerfilView {
+class PerfilEditActivity : BaseActivity(), UserView {
 
-    companion object {
-        const val EDIT_PERFIL: Int = 101
-    }
-
-    private lateinit var presenter: PerfilPresenter
+    private lateinit var presenter: UserPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +22,7 @@ class PerfilEditActivity : BaseActivity(), PerfilView {
     }
 
     fun initViews(){
-        presenter = PerfilPresenter(baseContext, this)
+        presenter = UserPresenter(baseContext,this)
 
         val user = UserPresenter.getUser()
         edt_perfil_name.hint = user?.displayName
@@ -38,14 +33,9 @@ class PerfilEditActivity : BaseActivity(), PerfilView {
             val name = edt_perfil_name.text.toString()
 
             if(name.equals("")){
-
-                val snackBar = Snackbar.make(it, "Please, fill all inputs and try again! ", Snackbar.LENGTH_LONG)
-                snackBar.setActionTextColor(Color.WHITE)
-                snackBar.view.setBackgroundColor(Color.RED)
-                snackBar.show()
-
+                snackbarBuilder(it, "Please, fill all inputs and try again!", Color.WHITE, Color.RED)
             }else{
-                presenter.update(1)
+                presenter.updateUser(name)
             }
         }
     }
@@ -56,9 +46,6 @@ class PerfilEditActivity : BaseActivity(), PerfilView {
     }
 
     override fun onError(error: String) {
-        val snackBar = Snackbar.make(btn_profile_edit, "Error at create schedule, try again! ", Snackbar.LENGTH_LONG)
-        snackBar.setActionTextColor(Color.WHITE)
-        snackBar.view.setBackgroundColor(Color.RED)
-        snackBar.show()
+        snackbarBuilder(btn_profile_edit, "Error at create schedule, try again!", Color.WHITE, Color.RED)
     }
 }

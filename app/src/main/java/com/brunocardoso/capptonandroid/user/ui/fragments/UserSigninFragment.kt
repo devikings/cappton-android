@@ -9,13 +9,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.brunocardoso.capptonandroid.R
-import com.brunocardoso.capptonandroid.infra.utils.AlertDialogCustomerUtil
+import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
 import com.brunocardoso.capptonandroid.user.view.UserView
 import com.brunocardoso.capptonandroid.user.view.UserFragmentCallback
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.frag_user_signin.*
-
 
 class UserSigninFragment : Fragment(), UserView {
 
@@ -43,16 +41,17 @@ class UserSigninFragment : Fragment(), UserView {
             val email: String = edt_email.text.toString()
             val passw: String = edt_passw.text.toString()
 
-            if((email.equals("")) || (passw.equals(""))){
+            if((email.equals("")) && (passw.equals(""))){
+                snackbarBuilder(btn_signin, "Please fill in the fields and try again!", Color.WHITE, Color.RED)
+            }else if(email.equals("")){
+                snackbarBuilder(btn_signin, "Please fill in the email field and try again!", Color.WHITE, Color.RED)
+            }else if(passw.equals("")){
+                snackbarBuilder(btn_signin, "Please fill in the password field and try again!", Color.WHITE, Color.RED)
+            } else {
 
-                val snackBar = Snackbar.make(btn_signin, "Failed auth, try again! ", Snackbar.LENGTH_LONG)
-                snackBar.setActionTextColor(Color.WHITE)
-                snackBar.view.setBackgroundColor(Color.RED)
-                snackBar.show()
-
-            }else {
-
+                snackbarBuilder(btn_signin, "Authenticating, wait!", Color.BLACK, Color.GREEN)
                 presenter.signin(email, passw)
+
             }
         })
 
@@ -77,7 +76,7 @@ class UserSigninFragment : Fragment(), UserView {
      * Error at signin
      */
     override fun onError(error: String) {
-        AlertDialogCustomerUtil.createDialog(requireContext(), "Error at app", error)
+        snackbarBuilder(btn_signin, error, Color.WHITE, Color.RED)
     }
 
     override fun onAttach(context: Context) {

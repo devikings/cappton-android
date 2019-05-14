@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.brunocardoso.capptonandroid.infra.AUTHOR_DATA_FILENAME
+import com.brunocardoso.capptonandroid.infra.JSON_DATA_FILENAME
 import com.brunocardoso.capptonandroid.schedule.repository.data.Author
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -21,7 +21,7 @@ class SeedDatabaseWorker(
     override suspend fun doWork(): Result = coroutineScope {
 
         try {
-            applicationContext.assets.open(AUTHOR_DATA_FILENAME).use { inputStream ->
+            applicationContext.assets.open(JSON_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
                     val plantType = object : TypeToken<List<Author>>() {}.type
                     val plantList: List<Author> = Gson().fromJson(jsonReader, plantType)

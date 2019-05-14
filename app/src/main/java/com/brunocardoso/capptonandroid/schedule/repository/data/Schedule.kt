@@ -4,17 +4,20 @@ import androidx.room.*
 
 @Entity(
     tableName = "schedules",
-    primaryKeys = ["id"],
     foreignKeys = [ForeignKey(entity = Author::class,
         parentColumns = ["id"],
         childColumns = ["authorId"])]
 )
 data class Schedule(
-    val id: Int? = null,
     val title: String,
+    val details: String,
     val desc: String,
-    var expanded: Boolean,
     val uid: String,
     @ColumnInfo(name = "authorId", index = true) //just add index = true
-    val authorId: Int
+    val authorId: Int,
+    var status: Boolean = false
     )
+{
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    @Ignore var expanded: Boolean = false
+}

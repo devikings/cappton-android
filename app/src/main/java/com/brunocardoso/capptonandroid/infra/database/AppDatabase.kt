@@ -14,7 +14,7 @@ import com.brunocardoso.capptonandroid.schedule.repository.dao.ScheduleDao
 import com.brunocardoso.capptonandroid.schedule.repository.data.Author
 import com.brunocardoso.capptonandroid.schedule.repository.data.Schedule
 
-@Database(entities = [Author::class, Schedule::class], version = 1, exportSchema = false)
+@Database(entities = [Author::class, Schedule::class], version = 6, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun authorDao(): AuthorDao
@@ -30,11 +30,10 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        // Create and pre-populate the database. See this article for more details:
-        // https://medium.com/google-developers/7-pro-tips-for-room-fbadea4bfbd1#4785
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)

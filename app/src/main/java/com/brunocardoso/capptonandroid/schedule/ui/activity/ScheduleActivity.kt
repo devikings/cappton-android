@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import com.brunocardoso.capptonandroid.R
 import com.brunocardoso.capptonandroid.infra.base.BaseActivity
+import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.perfil.ui.activity.PerfilEditActivity
 import com.brunocardoso.capptonandroid.perfil.ui.fragments.PerfilFragment
 import com.brunocardoso.capptonandroid.schedule.ui.fragments.ScheduleListFinishedFragment
@@ -20,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.act_perfil_edit.*
 import kotlinx.android.synthetic.main.act_schedule.*
+import kotlinx.android.synthetic.main.frag_user_reset_passw.*
 
 class ScheduleActivity : BaseActivity(),
     ScheduleFragmentCallback,
@@ -119,19 +121,11 @@ class ScheduleActivity : BaseActivity(),
                 PERFIL_EDIT -> {
                     navigation_bottom.menu.findItem(R.id.action_perfil).setChecked(true)
 
-                    val snackBar =
-                        Snackbar.make(navigation_bottom, "Perfil edited with success! ", Snackbar.LENGTH_LONG)
-                    snackBar.setActionTextColor(Color.WHITE)
-                    snackBar.view.setBackgroundColor(Color.GREEN)
-                    snackBar.show()
+                    snackbarBuilder(fab, "Perfil edited with success!", Color.BLACK, Color.GREEN)
                 }
                 CREATE_SCHEDULE -> {
 
-                    val snackBar =
-                        Snackbar.make(navigation_bottom, "Schedule create with success! ", Snackbar.LENGTH_LONG)
-                    snackBar.setActionTextColor(Color.WHITE)
-                    snackBar.view.setBackgroundColor(Color.GREEN)
-                    snackBar.show()
+                    snackbarBuilder(fab, "Schedule create with success!", Color.BLACK, Color.GREEN)
                 }
             }
         }

@@ -2,16 +2,19 @@ package com.brunocardoso.capptonandroid.schedule.ui.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextWatcher
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import com.brunocardoso.capptonandroid.R
+import com.brunocardoso.capptonandroid.afterTextChanged
 import com.brunocardoso.capptonandroid.infra.base.BaseActivity
+import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.schedule.presenter.SchedulePresenter
 import com.brunocardoso.capptonandroid.schedule.repository.data.Author
 import com.brunocardoso.capptonandroid.schedule.repository.data.Schedule
 import com.brunocardoso.capptonandroid.schedule.view.ScheduleView
 import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.act_schedule_create.*
 
 class ScheduleCreateActivity : BaseActivity(), ScheduleView {
@@ -24,7 +27,25 @@ class ScheduleCreateActivity : BaseActivity(), ScheduleView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_schedule_create)
 
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+        }
+
         initViews()
+
+        verifyInputsFill()
+    }
+
+    private fun verifyInputsFill() {
+        edt_sched_title.afterTextChanged { changeStatesButton() }
+        edt_sched_details.afterTextChanged { changeStatesButton() }
+        edt_sched_desc.afterTextChanged { changeStatesButton() }
+    }
+
+    private fun changeStatesButton(){
+        btn_schedule_create.isEnabled = edt_sched_title.text?.length!! > 0
+                && edt_sched_details.text?.length!!> 0
+                && edt_sched_desc.text?.length!! > 0
     }
 
     fun initViews(){
@@ -42,14 +63,14 @@ class ScheduleCreateActivity : BaseActivity(), ScheduleView {
 
         btn_schedule_create.setOnClickListener{
             val title = edt_sched_title.text.toString()
+            val details = edt_sched_details.text.toString()
             val desc = edt_sched_desc.text.toString()
 
-            if (title.equals("") || desc.equals("")){
+            if (title.equals("")
+                || details.equals("")
+                || desc.equals("")){
 
-                val snackBar = Snackbar.make(it, "Please, fill all inputs and try again! ", Snackbar.LENGTH_LONG)
-                snackBar.setActionTextColor(Color.WHITE)
-                snackBar.view.setBackgroundColor(Color.RED)
-                snackBar.show()
+                snackbarBuilder(it, "Please, fill all inputs and try again!", Color.WHITE, Color.RED)
 
             }else{
 
@@ -59,9 +80,16 @@ class ScheduleCreateActivity : BaseActivity(), ScheduleView {
                 // get user
                 val userLogged = UserPresenter.getUser()
 
-                presenter.create( Schedule(0, title, desc, false, userLogged?.uid!!, authorSelected.id!! ))
+                presenter.create( Schedule(title, details, desc, userLogged?.uid!!, authorSelected.id!! ))
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun configureSpinner(listAuthors: ArrayList<String>) {
@@ -70,18 +98,11 @@ class ScheduleCreateActivity : BaseActivity(), ScheduleView {
     }
 
     override fun onSuccess() {
-        val snackBar = Snackbar.make(btn_schedule_create, "Schedule create with success! ", Snackbar.LENGTH_LONG)
-        snackBar.setActionTextColor(Color.WHITE)
-        snackBar.view.setBackgroundColor(Color.GREEN)
-        snackBar.show()
-
+        snackbarBuilder(btn_schedule_create, "Schedule create with success!", Color.BLACK, Color.GREEN)
         finish()
     }
 
     override fun onError(error: String) {
-        val snackBar = Snackbar.make(btn_schedule_create, "Error at create schedule, try again! ", Snackbar.LENGTH_LONG)
-        snackBar.setActionTextColor(Color.WHITE)
-        snackBar.view.setBackgroundColor(Color.RED)
-        snackBar.show()
+        snackbarBuilder(btn_schedule_create, "Error at create schedule, try again!", Color.WHITE, Color.RED)
     }
 }

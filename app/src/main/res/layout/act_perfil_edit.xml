@@ -1,65 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     android:padding="16dp"
     tools:context=".perfil.ui.activity.PerfilEditActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edt_perfil_name"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:lines="1"
-                tools:text="Bruno Cardoso"
-                style="@style/AppTheme.EditText.Dark"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/act_perfil_edit_tv_name"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="E-mail"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                />
+                <EditText
+                    android:id="@+id/edt_perfil_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:lines="1"
+                    tools:text="Bruno Cardoso"
+                    style="@style/AppTheme.EditText.Dark"
+                    />
 
-            <TextView
-                android:id="@+id/tv_perfil_email"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:enabled="false"
-                tools:text="brunohenrique774@gmail.com"
-                style="@style/AppTheme.EditText.Dark"
-                />
-        </LinearLayout>
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/act_perfil_edit_tv_email"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
-    <Button
-        android:id="@+id/btn_profile_edit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:text="Edit"
-        style="@style/AppTheme.Button.Dark"
-    />
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tv_perfil_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:enabled="false"
+                    tools:text="@string/act_prefil_edit_email_fake"
+                    style="@style/AppTheme.EditText.Dark"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_profile_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/btn_edit"
+            style="@style/AppTheme.Button.Dark"
+        />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

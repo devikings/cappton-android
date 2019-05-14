@@ -29,8 +29,7 @@ class UserPresenter(
                     view.onSuccess()
 
                 }else{
-                    Toast.makeText(context, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    view.onError(it.exception?.message.toString())
                 }
             }
     }
@@ -52,8 +51,7 @@ class UserPresenter(
                     view.onSuccess()
 
                 }else{
-                    Toast.makeText(context, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    view.onError(it.exception?.message.toString())
                 }
             })
     }
@@ -68,9 +66,8 @@ class UserPresenter(
                     Toast.makeText(context, "Email sent with success, verify your email",
                         Toast.LENGTH_SHORT).show()
                 }else{
-                    view.onError("Reset password failed.")
-                    Toast.makeText(context, "Reset password failed.",
-                        Toast.LENGTH_SHORT).show()
+
+                    view.onError(task.exception?.message.toString())
                 }
             }
 
@@ -116,5 +113,7 @@ class UserPresenter(
                 .setDisplayName( fullName )
                 .build()
         )
+
+        view.onSuccess()
     }
 }

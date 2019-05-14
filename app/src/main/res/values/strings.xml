@@ -1,7 +1,28 @@
 <resources>
     <string name="app_name">Capptan</string>
 
-    <string name="frag_input_name_hint">Name</string>
-    <string name="frag_input_email_hint">E-mail</string>
-    <string name="frag_input_passw_hint">Senha</string>
+    <string name="frag_user_signup_tv_name">Name</string>
+    <string name="frag_user_signup_tv_email">E-mail</string>
+    <string name="frag_user_signup_tv_password">Password</string>
+    <string name="frag_user_signin_tv_email">E-mail</string>
+    <string name="frag_user_signin_tv_password">Password</string>
+    <string name="act_perfil_edit_tv_name">Name</string>
+    <string name="act_perfil_edit_tv_email">E-mail</string>
+    <string name="act_prefil_edit_email_fake">brunohenrique774@gmail.com</string>
+    <string name="btn_edit">Edit</string>
+    <string name="act_schedule_create_tv_title">Title</string>
+    <string name="act_schedule_create_tv_details">Details</string>
+    <string name="act_schedule_create_tv_author">Author</string>
+    <string name="act_schedule_create_tv_desc">Description</string>
+    <string name="btn_create">Create</string>
+    <string name="btn_logout">Logout</string>
+    <string name="frag_schedules_finished_tv_no_data">You do not have finalized schedule, \n click the button below to register a new schedule!</string>
+    <string name="frag_schedules_opened_tv_no_data">You do not have opened schedule, \n click the button below to register a new schedule!</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="frag_user_signin_tv_reset_password">Reset password</string>
+    <string name="frag_user_signin_tv_register">or click here for register</string>
+    <string name="btn_signin">signin</string>
+    <string name="frag_user_signup_tv_fill_inputs">Fill in the fields to register
+    </string>
+    <string name="frag_user_reset_passw_email">E-mail</string>
 </resources>

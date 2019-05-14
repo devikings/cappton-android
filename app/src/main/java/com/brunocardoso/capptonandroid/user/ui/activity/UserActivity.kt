@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import com.brunocardoso.capptonandroid.R
 import com.brunocardoso.capptonandroid.infra.base.BaseActivity
+import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.schedule.repository.data.Schedule
 import com.brunocardoso.capptonandroid.schedule.ui.activity.ScheduleActivity
 import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
@@ -12,6 +13,7 @@ import com.brunocardoso.capptonandroid.user.ui.fragments.UserSigninFragment
 import com.brunocardoso.capptonandroid.user.ui.fragments.UserSignupFragment
 import com.brunocardoso.capptonandroid.user.view.UserFragmentCallback
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.frag_user_reset_passw.*
 import kotlinx.android.synthetic.main.frag_user_signup.*
 
 class UserActivity : BaseActivity(), UserFragmentCallback {
@@ -27,9 +29,6 @@ class UserActivity : BaseActivity(), UserFragmentCallback {
         // verify if user is not authenticated
         if (UserPresenter.verifyUserAuthenticated()) {
 
-            Snackbar.make(findViewById(R.id.frame_container), "Signin with successful!", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
 
             openActivity(ScheduleActivity::class, null)
             finish()
@@ -48,6 +47,9 @@ class UserActivity : BaseActivity(), UserFragmentCallback {
     }
 
     override fun onSigninSuccessful() {
+
+        snackbarBuilder(btn_reset_passw, "Signin with successful!", Color.BLACK, Color.GREEN)
+
         openActivity(ScheduleActivity::class)
         finish()
 

@@ -9,7 +9,7 @@ import com.brunocardoso.capptonandroid.schedule.repository.data.Schedule
 import kotlinx.android.synthetic.main.item_schedule.view.*
 
 class ScheduleAdapter(
-    var list: List<Schedule>,
+    var list: MutableList<Schedule>,
     val listener: (Schedule) -> Unit): RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
@@ -18,9 +18,12 @@ class ScheduleAdapter(
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-
         holder.bind(list[position], listener)
+    }
 
+    fun removeItem(i: Int){
+        list.removeAt(i)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = list.size
@@ -30,26 +33,33 @@ class ScheduleAdapter(
         fun bind(item: Schedule, listener: (Schedule) -> Unit) = with(itemView) {
 
             item_scheduled_title.text = item.title
+            item_scheduled_details.text = item.details
             item_scheduled_desc.text = item.desc
 
-            btn_finalizar.setOnClickListener { listener(item) }
+            if (item.status){
+                iv_icon_state.setImageResource(R.drawable.ic_assignment_turned_in_24dp)
+                btn_finalizar.text = "Open"
+            }else{
+                iv_icon_state.setImageResource(R.drawable.ic_assignment_24dp)
+                btn_finalizar.text = "Close"
+            }
 
-            ll_read_more.setOnClickListener{
+            itemView.setOnClickListener{
                 val expanded = item.expanded
-
                 if(expanded == false){
-                    item_scheduled_desc.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                    item_scheduled_desc.visibility = View.VISIBLE
                     btn_finalizar.visibility = View.VISIBLE
-                    iv_read_more.setImageResource(R.drawable.ic_keyboard_arrow_up_24dp)
-                    item.expanded = true
-
                 }else{
-                    item_scheduled_desc.height = 50
+                    item_scheduled_desc.visibility = View.GONE
                     btn_finalizar.visibility = View.GONE
-                    iv_read_more.setImageResource(R.drawable.ic_keyboard_arrow_down_24dp)
-                    item.expanded = false
-
                 }
+
+                item.expanded = !expanded
+                item.status = !item.status
+            }
+
+            btn_finalizar.setOnClickListener {
+                listener(item)
             }
         }
 

@@ -14,12 +14,14 @@ import com.brunocardoso.capptonandroid.schedule.adapter.ScheduleAdapter
 import com.brunocardoso.capptonandroid.schedule.presenter.SchedulePresenter
 import com.brunocardoso.capptonandroid.schedule.repository.data.Schedule
 import com.brunocardoso.capptonandroid.schedule.view.ScheduleView
+import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.frag_schedules_opened.*
 
 class ScheduleListOpenedFragment : Fragment(), ScheduleView {
 
     private lateinit var presenter: SchedulePresenter
+    private lateinit var listSchedules: MutableList<Schedule>
     private var adapter: ScheduleAdapter? = null
 
     override fun onCreateView(
@@ -32,18 +34,23 @@ class ScheduleListOpenedFragment : Fragment(), ScheduleView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        val user = UserPresenter.getUser()
+
         presenter = SchedulePresenter(requireContext(), this)
-        presenter.getSchedules()?.observe(viewLifecycleOwner, Observer {
+        presenter.getSchedules(user?.uid!!,false)?.observe(viewLifecycleOwner, Observer {
             progress_bar.visibility = View.VISIBLE
 
             if (it.size>0) {
+
+                listSchedules = it
 
                 tv_no_data.visibility = View.GONE
                 recycler_view_schedules.visibility = View.VISIBLE
 
                 Thread(Runnable {
 
-                    Thread.sleep(2000)
+                    Thread.sleep(500)
 
                     activity?.runOnUiThread(java.lang.Runnable {
                         configureRecyclerView(it)
@@ -59,18 +66,18 @@ class ScheduleListOpenedFragment : Fragment(), ScheduleView {
         })
     }
 
-    private fun configureRecyclerView(list: List<Schedule>) {
+    private fun configureRecyclerView(list: MutableList<Schedule>) {
 
         val layoutManager = LinearLayoutManager(requireContext())
         recycler_view_schedules.layoutManager = layoutManager
 
         adapter = ScheduleAdapter(list) {
-            presenter.update(it.id!!)
+            presenter.update(it)
         }
 
         recycler_view_schedules.adapter = adapter
-
     }
+
 
     override fun onSuccess() {
         val snackBar = Snackbar.make(recycler_view_schedules, "Scheduled finalized with success!", Snackbar.LENGTH_LONG)

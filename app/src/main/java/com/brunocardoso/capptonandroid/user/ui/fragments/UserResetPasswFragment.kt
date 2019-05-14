@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.brunocardoso.capptonandroid.R
-import com.brunocardoso.capptonandroid.infra.utils.AlertDialogCustomerUtil
+import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
 import com.brunocardoso.capptonandroid.user.view.UserView
 import com.brunocardoso.capptonandroid.user.view.UserFragmentCallback
@@ -40,16 +40,12 @@ class UserResetPasswFragment : Fragment(), UserView {
             val email = edt_email.text.toString()
 
             if (email.equals("")){
-                val snackBar = Snackbar.make(btn_reset_passw, "It email not exists, try again! ", Snackbar.LENGTH_LONG)
-                snackBar.setActionTextColor(Color.WHITE)
-                snackBar.view.setBackgroundColor(Color.RED)
-                snackBar.show()
+
+                snackbarBuilder(btn_reset_passw, "It email not exists, try again!", Color.WHITE, Color.RED)
 
             }else {
-                val snackBar = Snackbar.make(btn_reset_passw, "Please, verify your email!", Snackbar.LENGTH_LONG)
-                snackBar.setActionTextColor(Color.WHITE)
-                snackBar.view.setBackgroundColor(Color.GREEN)
-                snackBar.show()
+
+                snackbarBuilder(btn_reset_passw, "Please, verify your email!", Color.WHITE, Color.RED)
 
                 presenter.resetPassword(email)
             }
@@ -61,7 +57,7 @@ class UserResetPasswFragment : Fragment(), UserView {
     }
 
     override fun onError(error: String) {
-        AlertDialogCustomerUtil.createDialog(requireContext(), "Error at app!" , error)
+        snackbarBuilder(btn_reset_passw, "Error at app!", Color.WHITE, Color.RED)
     }
 
     override fun onAttach(context: Context) {

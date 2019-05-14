@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import com.brunocardoso.capptonandroid.R
-import com.brunocardoso.capptonandroid.infra.utils.AlertDialogCustomerUtil
+import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
 import com.brunocardoso.capptonandroid.user.view.UserView
 import com.brunocardoso.capptonandroid.user.view.UserFragmentCallback
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.frag_user_signup.*
 import java.lang.ClassCastException
 
@@ -48,10 +47,7 @@ class UserSignupFragment : Fragment(), UserView {
 
             if( name.equals("") || email.equals("") || passw.equals("")) {
 
-                val snackBar = Snackbar.make(btn_signup, "Erro at signup, try again! ", Snackbar.LENGTH_LONG)
-                snackBar.setActionTextColor(Color.WHITE)
-                snackBar.view.setBackgroundColor(Color.RED)
-                snackBar.show()
+                snackbarBuilder(btn_signup, "Error at signup, try again!", Color.WHITE, Color.RED)
 
             }else {
 
@@ -72,15 +68,13 @@ class UserSignupFragment : Fragment(), UserView {
 
     override fun onSuccess() {
 
-        val snackBar = Snackbar.make(btn_signup, "Signup with success, now you signin", Snackbar.LENGTH_LONG)
-        snackBar.setActionTextColor(Color.WHITE)
-        snackBar.view.setBackgroundColor(Color.GREEN)
-        snackBar.show()
+        snackbarBuilder(btn_signup, "Successfully registered, you can now login\n", Color.BLACK, Color.GREEN)
 
         callback?.onSignupSuccessful()
     }
 
     override fun onError(error: String) {
-        AlertDialogCustomerUtil.createDialog(requireContext(), "Error at app", error)
+
+        snackbarBuilder(btn_signup, error, Color.WHITE, Color.RED)
     }
 }

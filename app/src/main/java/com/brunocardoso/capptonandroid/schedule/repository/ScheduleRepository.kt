@@ -34,7 +34,7 @@ class ScheduleRepository private constructor(private val db: AppDatabase) {
 
     private lateinit var authors: MutableLiveData<List<Author>>
     private lateinit var author: MutableLiveData<Author>
-    private lateinit var schedules : MutableLiveData<List<Schedule>>
+    lateinit var schedules : MutableLiveData<MutableList<Schedule>>
 
 
     init {
@@ -56,21 +56,46 @@ class ScheduleRepository private constructor(private val db: AppDatabase) {
 
     }
 
-
     @UiThread
-    fun getSchedules(): LiveData<List<Schedule>>{
+    fun getSchedules(uid: String,status: Boolean): LiveData<MutableList<Schedule>>{
         schedules = MutableLiveData()
-        schedules.postValue(scheduleDao.getAllSchedules())
+        schedules.postValue(scheduleDao.getAllSchedules(uid, status))
 
         GlobalScope.launch(Dispatchers.Main) {
-            val schedulesFromDb: List<Schedule> = async(Dispatchers.IO) {
-                return@async scheduleDao.getAllSchedules()
+            val schedulesFromDb: MutableList<Schedule> = async(Dispatchers.IO) {
+                return@async scheduleDao.getAllSchedules(uid, status)
             }.await()
 
             schedules.value = schedulesFromDb
         }
 
         return schedules
+    }
+
+    @UiThread
+    fun insertSchedule(schedule: Schedule, callback: () -> Unit) {
+
+        GlobalScope.launch(Dispatchers.Main) {
+            async(Dispatchers.IO) {
+                return@async scheduleDao.insert( schedule )
+            }.await()
+
+            callback()
+        }
+
+    }
+
+    @UiThread
+    fun updateSchedule(schedule: Schedule, callback: () -> Unit) {
+
+        GlobalScope.launch(Dispatchers.Main) {
+            async(Dispatchers.IO) {
+
+                return@async scheduleDao.update( schedule )
+            }.await()
+
+            callback()
+        }
     }
 
     @UiThread

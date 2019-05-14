@@ -26,22 +26,30 @@ class SchedulePresenter(
         repository = ScheduleRepository.getInstance(db)
     }
 
-
     // Regras de negocio
     // criar
     // excluir
     // mudar status
     // recuperar pautas 1/
 
-
     //Schedules
     fun create(schedule: Schedule){
-        callback?.onSuccess()
+        repository?.insertSchedule(schedule, {
+            callback?.onSuccess()
+        })
     }
     fun delete(id: Int){ callback?.onSuccess() }
-    fun update(id: Int){ callback?.onSuccess() }
 
-    fun getSchedules(): LiveData<List<Schedule>>? = repository?.getSchedules()
+    fun update(schedule: Schedule){
+        repository?.updateSchedule(schedule, {
+            val list = repository?.schedules?.value
+            list?.remove( schedule )
+            repository?.schedules?.postValue(list)
+            callback?.onSuccess()
+        })
+    }
+
+    fun getSchedules(uid: String, status: Boolean): LiveData<MutableList<Schedule>>? = repository?.getSchedules(uid, status)
 
     // Authors
     fun getAuthors(id: Int) = repository?.getAuthor(id)

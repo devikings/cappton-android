@@ -1,79 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
+    android:fillViewport="true"
     tools:context=".schedule.ui.activity.ScheduleCreateActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Titulo"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/act_schedule_create_tv_title"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                <EditText
+                    android:id="@+id/edt_sched_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:lines="1"
+                    style="@style/AppTheme.EditText.Dark"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/act_schedule_create_tv_details"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                <EditText
+                    android:id="@+id/edt_sched_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:lines="1"
+                    style="@style/AppTheme.EditText.Dark"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/act_schedule_create_tv_author"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                <Spinner
+                    android:id="@+id/sp_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:lines="1"
+                    style="@style/AppTheme.EditText.Dark"
                 />
 
-            <EditText
-                android:id="@+id/edt_sched_title"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:lines="1"
-                style="@style/AppTheme.EditText.Dark"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/act_schedule_create_tv_desc"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Author."
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                />
+                <EditText
+                    android:id="@+id/edt_sched_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="top"
+                    style="@style/AppTheme.EditText.Dark"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
 
-            <Spinner
-                android:id="@+id/sp_author"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:lines="1"
-                style="@style/AppTheme.EditText.Dark"
+        <Button
+            android:id="@+id/btn_schedule_create"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/btn_create"
+            android:enabled="false"
+            android:background="@drawable/bg_button_light_states"
             />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Descrição"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                />
-
-            <EditText
-                android:id="@+id/edt_sched_desc"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="top"
-                style="@style/AppTheme.EditText.Dark"
-                />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/btn_schedule_create"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:text="Create"
-        style="@style/AppTheme.Button.Dark"
-        />
-</LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

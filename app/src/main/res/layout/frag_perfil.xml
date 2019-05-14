@@ -63,7 +63,7 @@
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Logout"
+            android:text="@string/btn_logout"
             style="@style/AppTheme.Button.Logout"
             />
     </LinearLayout>

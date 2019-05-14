@@ -11,11 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.brunocardoso.capptonandroid.R
+import com.brunocardoso.capptonandroid.infra.utils.snackbarBuilder
 import com.brunocardoso.capptonandroid.schedule.adapter.ScheduleAdapter
 import com.brunocardoso.capptonandroid.schedule.presenter.SchedulePresenter
 import com.brunocardoso.capptonandroid.schedule.repository.data.Schedule
 import com.brunocardoso.capptonandroid.schedule.view.ScheduleView
+import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.act_schedule_create.*
 import kotlinx.android.synthetic.main.frag_schedules_finished.*
 
 class ScheduleListFinishedFragment : Fragment(), ScheduleView{
@@ -32,10 +35,11 @@ class ScheduleListFinishedFragment : Fragment(), ScheduleView{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = SchedulePresenter(requireContext(), this)
+
+        val user = UserPresenter.getUser()
 
         presenter = SchedulePresenter(requireContext(), this)
-        presenter.getSchedules()?.observe(viewLifecycleOwner, Observer {
+        presenter.getSchedules(user?.uid!!, true)?.observe(viewLifecycleOwner, Observer {
             progress_bar.visibility = View.VISIBLE
 
             if (it.size>0) {
@@ -45,7 +49,7 @@ class ScheduleListFinishedFragment : Fragment(), ScheduleView{
 
                 Thread(Runnable {
 
-                    Thread.sleep(2000)
+                    Thread.sleep(500)
 
                     activity?.runOnUiThread(java.lang.Runnable {
                         configureRecyclerView(it)
@@ -61,29 +65,23 @@ class ScheduleListFinishedFragment : Fragment(), ScheduleView{
         })
     }
 
-    private fun configureRecyclerView(list: List<Schedule>) {
+    private fun configureRecyclerView(list: MutableList<Schedule>) {
 
         val layoutManager = LinearLayoutManager(requireContext())
         recycler_schedules_finished.layoutManager = layoutManager
 
         adapter = ScheduleAdapter(list) {
-            presenter.update(it.id!!)
+            presenter.update(it)
         }
         recycler_schedules_finished.adapter = adapter
 
     }
 
     override fun onSuccess() {
-        val snackBar = Snackbar.make(recycler_schedules_finished, "Scheduled finalized with success!", Snackbar.LENGTH_LONG)
-        snackBar.setActionTextColor(Color.WHITE)
-        snackBar.view.setBackgroundColor(Color.GREEN)
-        snackBar.show()
+        snackbarBuilder(recycler_schedules_finished, "Scheduled opened with success!", Color.BLACK, Color.GREEN)
     }
 
     override fun onError(error: String) {
-        val snackBar = Snackbar.make(recycler_schedules_finished, "Error at finishing schedule!", Snackbar.LENGTH_LONG)
-        snackBar.setActionTextColor(Color.WHITE)
-        snackBar.view.setBackgroundColor(Color.RED)
-        snackBar.show()
+        snackbarBuilder(recycler_schedules_finished, "Error at opened schedule!", Color.WHITE, Color.RED)
     }
 }

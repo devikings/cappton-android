@@ -35,7 +35,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Preencha os campos, para se cadastrar"
+                        android:text="@string/frag_user_signup_tv_fill_inputs"
                         android:layout_marginBottom="15dp"
                         android:textSize="16dp"
                         />
@@ -44,7 +44,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/frag_input_name_hint"
+                        android:text="@string/frag_user_signup_tv_name"
                         android:layout_marginBottom="5dp"
                         />
 
@@ -59,7 +59,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/frag_input_email_hint"
+                        android:text="@string/frag_user_signup_tv_email"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="5dp"
                         />
@@ -76,7 +76,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/frag_input_passw_hint"
+                        android:text="@string/frag_user_signup_tv_password"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="5dp"
                         />

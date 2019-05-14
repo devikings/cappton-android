@@ -9,12 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.brunocardoso.capptonandroid.R
-import com.brunocardoso.capptonandroid.perfil.presenter.PerfilPresenter
-import com.brunocardoso.capptonandroid.perfil.view.PerfilFragmentCallback
-import com.brunocardoso.capptonandroid.perfil.view.PerfilView
 import com.brunocardoso.capptonandroid.schedule.view.LogoutUserCallback
 import com.brunocardoso.capptonandroid.user.presenter.UserPresenter
-import com.brunocardoso.capptonandroid.user.view.UserFragmentCallback
 import kotlinx.android.synthetic.main.frag_perfil.*
 
 class PerfilFragment : Fragment() {

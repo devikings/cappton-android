@@ -29,7 +29,6 @@ class AuhorDaoTest {
         database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         authorDao = database.authorDao()
 
-        // Insert authors in non-alphabetical order to test that results are sorted by name
         authorDao.insert(authorA)
         authorDao.insert(authorB)
         authorDao.insert(authorC)
@@ -45,7 +44,6 @@ class AuhorDaoTest {
         val authorList = authorDao.getAllAuthors()
         Assert.assertThat(authorList.size, Matchers.equalTo(3))
 
-        // Ensure plant list is sorted by name
         Assert.assertThat(authorList.get(0), Matchers.equalTo(authorA))
         Assert.assertThat(authorList.get(1), Matchers.equalTo(authorB))
         Assert.assertThat(authorList.get(2), Matchers.equalTo(authorC))

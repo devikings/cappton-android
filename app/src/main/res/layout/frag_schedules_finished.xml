@@ -29,6 +29,6 @@
         tools:visibility="visible"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:text="Nenhuma pauta foi encontrada, \n clique no botão abaixo para cadastrar uma nova pauta!"
+        android:text="@string/frag_schedules_finished_tv_no_data"
         />
 </FrameLayout>
